@@ -168,7 +168,7 @@
       <version>2.0.1</version>
     </dependency>
 
-    <!--mybatis 三剑客:分页助手、导航助手、代码生成器助手-->
+    <!--mybatis 分页助手，以下3个都是-->
     <dependency>
       <groupId>com.github.pagehelper</groupId>
       <artifactId>pagehelper</artifactId>
@@ -231,6 +231,8 @@
           <artifactId>mybatis-generator-maven-plugin</artifactId>
           <version>1.3.2</version>
           <configuration>
+            <!--插件配置文件位置-->
+            <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
             <verbose>true</verbose>
             <overwrite>true</overwrite>
           </configuration>

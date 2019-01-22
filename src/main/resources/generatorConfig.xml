@@ -7,8 +7,8 @@
     <!--导入属性配置-->
     <properties resource="db.properties"></properties>
 
-    <!--指定特定数据库的jdbc驱动jar包的位置-->
-    <classPathEntry location="${db.driverLocation}"/>
+    <!--指定特定数据库的jdbc驱动jar包的位置，可以不在这里配，在pom文件中指定也行-->
+    <!--<classPathEntry location="${db.driverLocation}"/>-->
 
     <context id="default" targetRuntime="MyBatis3">
 
