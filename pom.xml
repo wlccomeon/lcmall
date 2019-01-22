@@ -222,7 +222,8 @@
 
   <build>
     <finalName>lc-mall</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <!--如果添加pluginManagement节点，则无法在maven插件管理中使用该插件-->
+    <!--<pluginManagement>&lt;!&ndash; lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) &ndash;&gt;-->
       <plugins>
         <!--mybatis生成器插件-->
         <plugin>
@@ -233,6 +234,15 @@
             <verbose>true</verbose>
             <overwrite>true</overwrite>
           </configuration>
+          <!--使用该插件需要添加数据库驱动依赖，即使在上面的dependency中有也不行，否则映射不成功
+          会报generate failed: Exception getting JDBC Driver: com.mysql.jdbc.Driver 的错误，-->
+          <dependencies>
+            <dependency>
+              <groupId>mysql</groupId>
+              <artifactId>mysql-connector-java</artifactId>
+              <version>5.1.6</version>
+            </dependency>
+          </dependencies>
         </plugin>
 
         <!-- maven的核心插件之-complier插件默认只支持编译Java 1.4，因此需要加上支持高版本jre的配置，在pom.xml里面加上 增加编译插件 -->
@@ -253,14 +263,14 @@
           <version>3.1.0</version>
         </plugin>
       </plugins>
-    </pluginManagement>
+    <!--</pluginManagement>-->
     <resources>
-      <resource>
-        <directory>src/main/resources.${deploy.type}</directory>
-        <excludes>
-          <exclude>*.jsp</exclude>
-        </excludes>
-      </resource>
+      <!--<resource>-->
+        <!--<directory>src/main/resources.${deploy.type}</directory>-->
+        <!--<excludes>-->
+          <!--<exclude>*.jsp</exclude>-->
+        <!--</excludes>-->
+      <!--</resource>-->
       <resource>
         <directory>src/main/resources</directory>
       </resource>
