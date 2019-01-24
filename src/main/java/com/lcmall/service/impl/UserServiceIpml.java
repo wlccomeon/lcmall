@@ -8,6 +8,8 @@ import com.lcmall.po.User;
 import com.lcmall.service.IUserService;
 import com.lcmall.util.MD5Util;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ import java.util.UUID;
 
 @Service
 public class UserServiceIpml implements IUserService {
+
+    private Logger logger = LoggerFactory.getLogger(UserServiceIpml.class);
 
     @Autowired
     private UserMapper userMapper;
@@ -33,6 +37,11 @@ public class UserServiceIpml implements IUserService {
         }
 
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
+        logger.debug("显示测试日志啦。。debug");
+        logger.info("显示测试日志啦。。info");
+        logger.warn("显示测试日志啦。。warn");
+        logger.error("显示测试日志啦。。error");
+
         return ServerResponse.createBySuccess("登录成功",user);
     }
 
