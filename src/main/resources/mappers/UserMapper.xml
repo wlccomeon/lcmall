@@ -165,5 +165,45 @@
     where username = #{username}
     and password = #{password}
   </select>
+  <select id="checkEmail" resultType="int" parameterType="string" >
+    select count(1) from lcmall_user
+    where email = #{email}
+  </select>
+  <select id="selectQuestionByUsername" resultType="string" parameterType="string">
+    select
+    question
+    from lcmall_user
+    where username = #{username}
+  </select>
+
+  <select id="checkAnswer" resultType="int" parameterType="map">
+    SELECT
+    count(1)
+    from lcmall_user
+    where username=#{username}
+    and question = #{question}
+    and answer = #{answer}
+  </select>
+
+  <update id="updatePasswordByUsername" parameterType="map">
+    update lcmall_user
+    SET password = #{passwordNew},update_time = now()
+    where username = #{username}
+  </update>
+
+  <select id="checkPassword" resultType="int" parameterType="map">
+    SELECT
+    count(1)
+    from lcmall_user
+    where password = #{password}
+    and id = #{userId}
+  </select>
+
+
+  <select id="checkEmailByUserId" resultType="int" parameterType="map">
+    select count(1) from lcmall_user
+    where email = #{email}
+    and id != #{userId}
+  </select>
 
 </mapper>
