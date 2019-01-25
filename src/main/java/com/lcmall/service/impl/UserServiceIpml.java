@@ -47,12 +47,12 @@ public class UserServiceIpml implements IUserService {
 
 
     @Override
-    public ServerResponse<String> register(User user){
-        ServerResponse validResponse = this.checkValid(user.getUsername(),Const.USERNAME);
+    public ServerResponse<String> addUser(User user){
+        ServerResponse validResponse = this.selectAndCheckValid(user.getUsername(),Const.USERNAME);
         if(!validResponse.isSuccess()){
             return validResponse;
         }
-        validResponse = this.checkValid(user.getEmail(), Const.EMAIL);
+        validResponse = this.selectAndCheckValid(user.getEmail(), Const.EMAIL);
         if(!validResponse.isSuccess()){
             return validResponse;
         }
@@ -61,13 +61,13 @@ public class UserServiceIpml implements IUserService {
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
         int resultCount = userMapper.insert(user);
         if(resultCount == 0){
-            return ServerResponse.createByErrorMessage("注册失败");
+            return ServerResponse.createByErrorMessage("添加用户失败！");
         }
-        return ServerResponse.createBySuccessMessage("注册成功");
+        return ServerResponse.createBySuccessMessage("添加用户成功！");
     }
 
     @Override
-    public ServerResponse<String> checkValid(String str,String type){
+    public ServerResponse<String> selectAndCheckValid(String str,String type){
         if(org.apache.commons.lang3.StringUtils.isNotBlank(type)){
             //开始校验
             if(Const.USERNAME.equals(type)){
@@ -91,7 +91,7 @@ public class UserServiceIpml implements IUserService {
     @Override
     public ServerResponse selectQuestion(String username){
 
-        ServerResponse validResponse = this.checkValid(username,Const.USERNAME);
+        ServerResponse validResponse = this.selectAndCheckValid(username,Const.USERNAME);
         if(validResponse.isSuccess()){
             //用户不存在
             return ServerResponse.createByErrorMessage("用户不存在");
@@ -104,7 +104,7 @@ public class UserServiceIpml implements IUserService {
     }
 
     @Override
-    public ServerResponse<String> checkAnswer(String username,String question,String answer){
+    public ServerResponse<String> selectAndCheckAnswer(String username,String question,String answer){
         int resultCount = userMapper.checkAnswer(username,question,answer);
         if(resultCount>0){
             //说明问题及问题答案是这个用户的,并且是正确的
@@ -117,11 +117,11 @@ public class UserServiceIpml implements IUserService {
 
 
     @Override
-    public ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken){
+    public ServerResponse<String> updateForgetPassword(String username,String passwordNew,String forgetToken){
         if(org.apache.commons.lang3.StringUtils.isBlank(forgetToken)){
             return ServerResponse.createByErrorMessage("参数错误,token需要传递");
         }
-        ServerResponse validResponse = this.checkValid(username,Const.USERNAME);
+        ServerResponse validResponse = this.selectAndCheckValid(username,Const.USERNAME);
         if(validResponse.isSuccess()){
             //用户不存在
             return ServerResponse.createByErrorMessage("用户不存在");
@@ -145,7 +145,7 @@ public class UserServiceIpml implements IUserService {
     }
 
     @Override
-    public ServerResponse<String> resetPassword(String passwordOld,String passwordNew,User user){
+    public ServerResponse<String> updatePassword(String passwordOld,String passwordNew,User user){
         //防止横向越权,要校验一下这个用户的旧密码,一定要指定是这个用户.因为我们会查询一个count(1),如果不指定id,那么结果就是true啦count>0;
         int resultCount = userMapper.checkPassword(MD5Util.MD5EncodeUtf8(passwordOld),user.getId());
         if(resultCount == 0){

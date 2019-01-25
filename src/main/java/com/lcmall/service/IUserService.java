@@ -20,7 +20,7 @@ public interface IUserService {
      * @param user
      * @return
      */
-    ServerResponse<String> register(User user);
+    ServerResponse<String> addUser(User user);
 
     /**
      * 校验用户信息
@@ -28,7 +28,7 @@ public interface IUserService {
      * @param type  user字段中的key
      * @return
      */
-    ServerResponse<String> checkValid(String str,String type);
+    ServerResponse<String> selectAndCheckValid(String str,String type);
 
     /**
      * 根据用户名查询问题
@@ -44,7 +44,7 @@ public interface IUserService {
      * @param answer 问题答案
      * @return
      */
-    ServerResponse<String> checkAnswer(String username,String question,String answer);
+    ServerResponse<String> selectAndCheckAnswer(String username,String question,String answer);
 
     /**
      * 忘记并重置密码
@@ -53,7 +53,7 @@ public interface IUserService {
      * @param forgetToken 回答问题正确之后返回给页面的token
      * @return
      */
-    ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken);
+    ServerResponse<String> updateForgetPassword(String username,String passwordNew,String forgetToken);
 
     /**
      * 重置密码
@@ -62,7 +62,7 @@ public interface IUserService {
      * @param user 用户信息
      * @return
      */
-    ServerResponse<String> resetPassword(String passwordOld,String passwordNew,User user);
+    ServerResponse<String> updatePassword(String passwordOld,String passwordNew,User user);
 
     /**
      * 更新用户信息

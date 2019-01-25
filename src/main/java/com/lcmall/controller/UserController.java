@@ -59,14 +59,14 @@ public class UserController {
     @RequestMapping(value = "register.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> register(User user){
-        return iUserService.register(user);
+        return iUserService.addUser(user);
     }
 
 
     @RequestMapping(value = "check_valid.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> checkValid(String str,String type){
-        return iUserService.checkValid(str,type);
+        return iUserService.selectAndCheckValid(str,type);
     }
 
     /**
@@ -105,7 +105,7 @@ public class UserController {
     @RequestMapping(value = "forget_check_answer.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetCheckAnswer(String username,String question,String answer){
-        return iUserService.checkAnswer(username,question,answer);
+        return iUserService.selectAndCheckAnswer(username,question,answer);
     }
 
     /**
@@ -118,7 +118,7 @@ public class UserController {
     @RequestMapping(value = "forget_reset_password.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<String> forgetRestPassword(String username,String passwordNew,String forgetToken){
-        return iUserService.forgetResetPassword(username,passwordNew,forgetToken);
+        return iUserService.updateForgetPassword(username,passwordNew,forgetToken);
     }
 
 
@@ -136,7 +136,7 @@ public class UserController {
         if(user == null){
             return ServerResponse.createByErrorMessage("用户未登录");
         }
-        return iUserService.resetPassword(passwordOld,passwordNew,user);
+        return iUserService.updatePassword(passwordOld,passwordNew,user);
     }
 
     /**

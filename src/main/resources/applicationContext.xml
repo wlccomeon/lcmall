@@ -171,5 +171,5 @@
             <aop:before method="before" pointcut-ref="txPointcut" />
         </aop:aspect>
     </aop:config>
-    
+
 </beans>
