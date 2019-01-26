@@ -147,8 +147,9 @@
     <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath*:mappers/*Mapper.xml"></property>
-
+        <property name="mapperLocations" value="classpath:mappers/*Mapper.xml"></property>
+        <!--引入mybatis配置文件，不能使用import resource的方式-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
         <!-- 分页插件 -->
         <property name="plugins">
             <array>

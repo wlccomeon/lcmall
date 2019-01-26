@@ -27,8 +27,9 @@
         </triggeringPolicy>
     </appender>
 
-    <!--在控制台和日志文件中打印sql语句配置，name必须是mapper所在的包路径-->
-    <logger name="com.lcmall.dao" level="DEBUG"/>
+    <!--在控制台和日志文件中打印sql语句配置，name必须是mapper所在的包路径，经验证可以实现。
+        本工程采用了在mybatis-config中的settings配置了日志的显示-->
+    <!--<logger name="com.lcmall.dao" level="DEBUG"/>-->
 
     <!-- 日志输出级别 -->
     <root level="INFO">
