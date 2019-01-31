@@ -29,6 +29,10 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
     /**记录读库的key,默认为4个*/
     private List<Object> slaveDataSources = new ArrayList<>(4);
 
+    /**
+     * 重写AbstractRoutingDataSource的方法，根据拿到的key从配置文件中查找对应的数据库连接池
+     * @return
+     */
     @Override
     protected Object determineCurrentLookupKey() {
         // 使用DynamicDataSourceHolder保证线程安全，并且得到当前线程中的数据源key
@@ -47,6 +51,9 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 
     }
 
+    /**
+     * 获取读库的key
+     */
     @SuppressWarnings("unchecked")
     @Override
     public void afterPropertiesSet() {
@@ -87,7 +94,4 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
         }
         return slaveDataSources.get(index);
     }
-
-
-
 }

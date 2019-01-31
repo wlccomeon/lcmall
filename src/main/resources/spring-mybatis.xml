@@ -8,8 +8,7 @@
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--加载数据库配置文件-->
-    <bean id="propertyConfigurer"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="order" value="2"/>
         <property name="ignoreUnresolvablePlaceholders" value="true"/>
         <property name="locations">
@@ -70,7 +69,6 @@
         <property name="password" value="${jdbc.slave02.password}"/>
     </bean>
 
-
     <!-- 定义数据源，使用自己实现的数据源 -->
     <bean id="dataSource" class="com.lcmall.dynamicdbsource.DynamicDataSource">
         <!-- 设置多个数据源 -->
@@ -86,7 +84,7 @@
         <property name="defaultTargetDataSource" ref="masterDataSource"/>
     </bean>
 
-    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <!-- spring和MyBatis完美整合 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:mappers/*Mapper.xml"></property>

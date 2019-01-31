@@ -134,6 +134,10 @@ public class DataSourceAspect {
         this.slaveMethodStart = slaveMethodStart;
     }
 
+    /**
+     * 获取配置的读取从库方法
+     * @return
+     */
     public String[] getSlaveMethodStart() {
         if(this.slaveMethodStart == null){
             // 没有指定，使用默认
@@ -141,5 +145,4 @@ public class DataSourceAspect {
         }
         return slaveMethodStart;
     }
-
 }
