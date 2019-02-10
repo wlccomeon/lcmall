@@ -70,7 +70,7 @@
     </bean>
 
     <!-- 定义数据源，使用自己实现的数据源 -->
-    <bean id="dataSource" class="com.lcmall.dynamicdbsource.DynamicDataSource">
+    <bean id="dataSource" class="com.lcmall.util.dynamicdbsource.DynamicDataSource">
         <!-- 设置多个数据源 -->
         <property name="targetDataSources">
             <map key-type="java.lang.String">
@@ -139,7 +139,7 @@
     </tx:advice>
 
     <!-- 定义AOP切面处理器 -->
-    <bean class="com.lcmall.dynamicdbsource.DataSourceAspect" id="dataSourceAspect">
+    <bean class="com.lcmall.util.dynamicdbsource.DataSourceAspect" id="dataSourceAspect">
         <!-- 指定事务策略 -->
         <property name="txAdvice" ref="txAdvice"/>
         <!-- 指定slave方法的前缀（非必须） -->

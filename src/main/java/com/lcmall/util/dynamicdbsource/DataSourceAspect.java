@@ -1,4 +1,4 @@
-package com.lcmall.dynamicdbsource;
+package com.lcmall.util.dynamicdbsource;
 
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;

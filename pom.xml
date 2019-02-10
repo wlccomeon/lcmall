@@ -275,7 +275,8 @@
           </dependencies>
         </plugin>
 
-        <!-- maven的核心插件之-complier插件默认只支持编译Java 1.4，因此需要加上支持高版本jre的配置，在pom.xml里面加上 增加编译插件 -->
+        <!-- maven的核心插件之-complier插件默认只支持编译Java 1.5，因此需要加上支持高版本jre的配置,增加编译插件
+        解决Maven自动重置在Idea中将java compiler的level设置为1.5的问题-->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>

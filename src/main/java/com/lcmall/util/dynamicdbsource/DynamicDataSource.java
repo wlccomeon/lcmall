@@ -1,4 +1,4 @@
-package com.lcmall.dynamicdbsource;
+package com.lcmall.util.dynamicdbsource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
