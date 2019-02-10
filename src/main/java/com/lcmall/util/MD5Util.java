@@ -3,7 +3,8 @@ package com.lcmall.util;
 import java.security.MessageDigest;
 
 /**
- * Created by geely
+ * MD5加密解密算法
+ * @author wlc
  */
 public class MD5Util {
 
@@ -36,10 +37,11 @@ public class MD5Util {
         try {
             resultString = new String(origin);
             MessageDigest md = MessageDigest.getInstance("MD5");
-            if (charsetname == null || "".equals(charsetname))
+            if (charsetname == null || "".equals(charsetname)) {
                 resultString = byteArrayToHexString(md.digest(resultString.getBytes()));
-            else
+            }else {
                 resultString = byteArrayToHexString(md.digest(resultString.getBytes(charsetname)));
+            }
         } catch (Exception exception) {
         }
         return resultString.toUpperCase();
