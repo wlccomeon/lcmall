@@ -1,11 +1,13 @@
 package com.lcmall.util.redis;
 
+import lombok.extern.slf4j.Slf4j;
 import redis.clients.jedis.ShardedJedis;
 
 /**
  * 分布式redis工具类
  * @author wlc
  */
+@Slf4j
 public class RedisShardedUtil {
     /**
      * 设置key的有效期，单位是秒
@@ -20,9 +22,8 @@ public class RedisShardedUtil {
             jedis = RedisShardedPool.getJedis();
             result = jedis.expire(key,exTime);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis expire exception:{}",e.toString());
             RedisShardedPool.returnResource(jedis);
-            return result;
         }
         RedisShardedPool.returnResource(jedis);
         return result;
@@ -42,9 +43,8 @@ public class RedisShardedUtil {
             jedis = RedisShardedPool.getJedis();
             result = jedis.setex(key,exTime,value);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis setEx exception:{}",e.toString());
             RedisShardedPool.returnResource(jedis);
-            return result;
         }
         RedisShardedPool.returnResource(jedis);
         return result;
@@ -64,9 +64,8 @@ public class RedisShardedUtil {
             jedis = RedisShardedPool.getJedis();
             result = jedis.set(key,value);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis set exception:{}",e.toString());
             RedisShardedPool.returnResource(jedis);
-            return result;
         }
         RedisShardedPool.returnResource(jedis);
         return result;
@@ -86,9 +85,8 @@ public class RedisShardedUtil {
             jedis = RedisShardedPool.getJedis();
             result = jedis.getSet(key,value);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis getSet exception:{}",e.toString());
             RedisShardedPool.returnResource(jedis);
-            return result;
         }
         RedisShardedPool.returnResource(jedis);
         return result;
@@ -106,9 +104,8 @@ public class RedisShardedUtil {
             jedis = RedisShardedPool.getJedis();
             result = jedis.get(key);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis get exception:{}",e.toString());
             RedisShardedPool.returnResource(jedis);
-            return result;
         }
         RedisShardedPool.returnResource(jedis);
         return result;
@@ -126,9 +123,8 @@ public class RedisShardedUtil {
             jedis = RedisShardedPool.getJedis();
             result = jedis.del(key);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis del exception:{}",e.toString());
             RedisShardedPool.returnResource(jedis);
-            return result;
         }
         RedisShardedPool.returnResource(jedis);
         return result;
@@ -148,9 +144,8 @@ public class RedisShardedUtil {
             jedis = RedisShardedPool.getJedis();
             result = jedis.setnx(key,value);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("redis setnx exception:{}",e.toString());
             RedisShardedPool.returnResource(jedis);
-            return result;
         }
         RedisShardedPool.returnResource(jedis);
         return result;

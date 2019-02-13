@@ -37,10 +37,6 @@ public class UserServiceIpml implements IUserService {
         }
 
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
-        logger.debug("显示测试日志啦。。debug");
-        logger.info("显示测试日志啦。。info");
-        logger.warn("显示测试日志啦。。warn");
-        logger.error("显示测试日志啦。。error");
 
         return ServerResponse.createBySuccess("登录成功",user);
     }

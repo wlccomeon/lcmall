@@ -91,7 +91,7 @@ public class CookieUtil {
      * @param request
      * @return
      */
-    public static Map<String,Cookie> getCookieMap(HttpServletRequest request){
+    private static Map<String,Cookie> getCookieMap(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         Map<String,Cookie> cookieMap = new HashMap<>();
         if (cookies != null){

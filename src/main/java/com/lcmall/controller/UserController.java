@@ -5,12 +5,19 @@ import com.lcmall.common.ResponseCode;
 import com.lcmall.common.ServerResponse;
 import com.lcmall.po.User;
 import com.lcmall.service.IUserService;
+import com.lcmall.util.CookieUtil;
+import com.lcmall.util.JsonUtil;
+import com.lcmall.util.redis.RedisShardedUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -28,26 +35,31 @@ public class UserController {
      * @param session
      * @return
      */
-    @RequestMapping(value = "login.do",method = RequestMethod.POST)
+    @RequestMapping(value = "login.do",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public ServerResponse<User> login(String username, String password, HttpSession session){
-        //有必要将User返回给页面吗？？？
-        ServerResponse<User> response = iUserService.login(username,password);
-        if (response.isSuccess()){
-            session.setAttribute(Const.CURRENT_USER,response.getData());
+    public ServerResponse<User> login(String username, String password, HttpSession session, HttpServletResponse response){
+        ServerResponse<User> serverResponse = iUserService.login(username,password);
+        if (serverResponse.isSuccess()){
+            String sessionId = session.getId();
+            CookieUtil.writeCookie(response,sessionId);
+            RedisShardedUtil.setEx(sessionId, JsonUtil.obj2String(serverResponse.getData()), Const.RedisCache.SESSION_EXTIME);
         }
-        return response;
+        return serverResponse;
     }
 
     /**
      * 退出登录
-     * @param session
+     *
      * @return
      */
     @RequestMapping(value = "logout.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<String> logout(HttpSession session){
-        session.removeAttribute(Const.CURRENT_USER);
+    public ServerResponse<String> logout(HttpServletRequest request,HttpServletResponse response){
+        String token = CookieUtil.readCookieValue(request);
+        //删除cookie数组中的自定义cookie
+        CookieUtil.delCookie(request,response);
+        //根据sessionid删除缓存中的用户数据
+        RedisShardedUtil.del(token);
         return ServerResponse.createBySuccess();
     }
 
@@ -71,15 +83,18 @@ public class UserController {
 
     /**
      * 获取Session中的用户信息
-     * @param session
      * @return
      */
     @RequestMapping(value = "get_user_info.do",method = RequestMethod.POST)
     @ResponseBody
-    public ServerResponse<User> getUserInfo(HttpSession session){
-        User user = (User) session.getAttribute(Const.CURRENT_USER);
-        if(user != null){
-            return ServerResponse.createBySuccess(user);
+    public ServerResponse<User> getUserInfo(HttpServletRequest request){
+        String token = CookieUtil.readCookieValue(request);
+        if (StringUtils.isNotBlank(token)){
+            String userJsonStr = RedisShardedUtil.get(token);
+            User user = JsonUtil.string2Obj(userJsonStr,User.class);
+            if(user != null){
+                return ServerResponse.createBySuccess(user);
+            }
         }
         return ServerResponse.createByErrorMessage("用户未登录,无法获取当前用户的信息");
     }
