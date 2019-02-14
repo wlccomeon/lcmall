@@ -52,7 +52,7 @@ public class UserController {
      *
      * @return
      */
-    @RequestMapping(value = "logout.do",method = RequestMethod.POST)
+    @RequestMapping(value = "logout.do",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public ServerResponse<String> logout(HttpServletRequest request,HttpServletResponse response){
         String token = CookieUtil.readCookieValue(request);
@@ -85,7 +85,7 @@ public class UserController {
      * 获取Session中的用户信息
      * @return
      */
-    @RequestMapping(value = "get_user_info.do",method = RequestMethod.POST)
+    @RequestMapping(value = "get_user_info.do",method = {RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
     public ServerResponse<User> getUserInfo(HttpServletRequest request){
         String token = CookieUtil.readCookieValue(request);
