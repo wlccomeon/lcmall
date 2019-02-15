@@ -9,7 +9,10 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 本地缓存，主要用来存放和获取token
+ * 本地缓存，主要用来存放和获取token，
+ * 这里的使用场景是：忘记密码，需要回答问题的情况下，回答正确，产生token，携带该token跳转到重置新密码的窗口
+ * 后面会改造成使用分布式Redis缓存
+ *
  */
 public class TokenCache {
 
