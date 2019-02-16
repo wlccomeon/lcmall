@@ -2,9 +2,13 @@ package com.lcmall.po;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+/**
+ * 实现序列化是为了使用Spring-Session
+ */
+public class User implements Serializable {
     private Integer id;
 
     private String username;

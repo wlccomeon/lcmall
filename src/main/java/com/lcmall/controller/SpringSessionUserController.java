@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * 使用springsession解决session共享的问题，区别于UserController中的使用自定义Cookie工具类+分布式Redis的方式
- * 该方案暂时不支持分布式redis
+ * 该方案暂时不支持redis分片list
  */
 @Controller
 @RequestMapping("/user/springsession")

@@ -227,11 +227,11 @@
       <version>1.16.18</version>
     </dependency>
 
-    <!-- spring session 单点登录 -->
+    <!-- spring session 单点登录,高于1.2.0与上面的spring版本不兼容，起不来应用 -->
     <dependency>
       <groupId>org.springframework.session</groupId>
       <artifactId>spring-session-data-redis</artifactId>
-      <version>1.3.1.RELEASE</version>
+      <version>1.2.0.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>org.redisson</groupId>
