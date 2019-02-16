@@ -38,24 +38,24 @@
     </context-param>
 
     <!--使用spring-session解决session共享问题-无侵入性，注意：此过滤器需要在其他业务过滤器之前-->
-    <filter>
-        <filter-name>springSessionRepositoryFilter</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>springSessionRepositoryFilter</filter-name>
-        <url-pattern>*.do</url-pattern>
-    </filter-mapping>
-
-    <!--注册延长"session"有效时间的filter-->
     <!--<filter>-->
-        <!--<filter-name>sessionExpireFilter</filter-name>-->
-        <!--<filter-class>com.lcmall.common.filter.SessionExpireFilter</filter-class>-->
+        <!--<filter-name>springSessionRepositoryFilter</filter-name>-->
+        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
     <!--</filter>-->
     <!--<filter-mapping>-->
-        <!--<filter-name>sessionExpireFilter</filter-name>-->
+        <!--<filter-name>springSessionRepositoryFilter</filter-name>-->
         <!--<url-pattern>*.do</url-pattern>-->
     <!--</filter-mapping>-->
+
+    <!--注册延长"session"有效时间的filter-->
+    <filter>
+        <filter-name>sessionExpireFilter</filter-name>
+        <filter-class>com.lcmall.common.filter.SessionExpireFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sessionExpireFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>dispatcher</servlet-name>

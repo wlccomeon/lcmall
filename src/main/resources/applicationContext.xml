@@ -7,12 +7,15 @@
 
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:component-scan base-package="com.lcmall" annotation-config="true"/>
+    <context:component-scan base-package="com.lcmall" annotation-config="true">
+        <!--优化包扫描，排除Controller，将扫描Controller的工作交给springmvc的配置文件dispatcher-servlet.xml-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
     <!--有了<context:component-scan就不需要下面的配置了-->
     <!--<context:annotation-config/>-->
 
     <aop:aspectj-autoproxy/>
     <import resource="spring-mybatis.xml" />
-    <import resource="spring-session.xml"/>
+    <!--<import resource="spring-session.xml"/>-->
 
 </beans>
