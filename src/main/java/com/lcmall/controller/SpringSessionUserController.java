@@ -34,6 +34,10 @@ public class SpringSessionUserController {
     @RequestMapping(value = "login.do",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse<User> login(String username, String password, HttpSession session){
+        //测试全局异常处理器
+//        int a = 1;
+//        int b = 0;
+//        int c = a/b;
         //有必要将User返回给页面吗？？？
         ServerResponse<User> response = iUserService.login(username,password);
         if (response.isSuccess()){
