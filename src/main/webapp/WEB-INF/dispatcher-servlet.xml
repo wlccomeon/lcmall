@@ -42,5 +42,19 @@
         <property name="defaultEncoding" value="UTF-8"></property>
     </bean>
 
+    <mvc:interceptors>
+        <!-- 定义在这里的，所有的都会拦截-->
+        <mvc:interceptor>
+            <!--说明：/* 不包括子路径，/**包括，如果所有的url只有两层，那么配/manage/*就够了-->
+            <!--manage/a.do  /manage/*-->
+            <!--manage/b.do  /manage/*-->
+            <!--manage/product/save.do /manage/**-->
+            <!--manage/order/detail.do /manage/**-->
+            <mvc:mapping path="/manage/**"/>
+            <!--<mvc:exclude-mapping path="/manage/user/login.do"/>-->
+            <bean class="com.lcmall.common.interceptor.AuthorityInterceptor" />
+        </mvc:interceptor>
+
+    </mvc:interceptors>
 
 </beans>
