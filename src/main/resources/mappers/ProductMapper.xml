@@ -176,4 +176,14 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--关单的时候，需要对库存查询并更新，使用主键id并且id的表达式为=，这样能保证只有行锁，不会发生表锁。-->
+  <select id="selectStockByProductId" resultType="int" parameterType="java.lang.Integer">
+    select
+    stock
+    from lcmall_product
+    where id = #{id}
+    for update
+  </select>
+
 </mapper>

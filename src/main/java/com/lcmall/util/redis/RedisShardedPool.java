@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * 分布式Redis连接池
+ * 如果想要实现redis分片的动态扩容，下面的redisIp可以逗号分隔多个IP作为一个字符串，同理redisPort，然后在下面进行遍历，
+ *      实现多个JedisShardInfo实例，以后扩展redis，只需要修改配置文件即可。
  * @author lc
  */
 public class RedisShardedPool {

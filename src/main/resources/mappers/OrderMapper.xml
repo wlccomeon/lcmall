@@ -198,4 +198,20 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectOrderStatusByCreateTime" resultMap="BaseResultMap" parameterType="map">
+    SELECT
+    <include refid="Base_Column_List"/>
+    from lcmall_order
+    where status = #{status}
+    <![CDATA[
+    and create_time <= #{date}
+    ]]>
+    order by create_time desc
+  </select>
+
+  <update id="closeOrderByOrderId" parameterType="int" >
+    UPDATE lcmall_order
+    SET status = 0
+    where id = #{id}
+  </update>
 </mapper>
