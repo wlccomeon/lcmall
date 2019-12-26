@@ -7,6 +7,7 @@ import com.lcmall.dao.UserMapper;
 import com.lcmall.po.User;
 import com.lcmall.service.IUserService;
 import com.lcmall.util.MD5Util;
+import com.lcmall.util.redis.RedisShardedUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,10 +38,6 @@ public class UserServiceIpml implements IUserService {
         }
 
         user.setPassword(org.apache.commons.lang3.StringUtils.EMPTY);
-        logger.debug("显示测试日志啦。。debug");
-        logger.info("显示测试日志啦。。info");
-        logger.warn("显示测试日志啦。。warn");
-        logger.error("显示测试日志啦。。error");
 
         return ServerResponse.createBySuccess("登录成功",user);
     }
@@ -109,7 +106,7 @@ public class UserServiceIpml implements IUserService {
         if(resultCount>0){
             //说明问题及问题答案是这个用户的,并且是正确的
             String forgetToken = UUID.randomUUID().toString();
-            TokenCache.setKey(TokenCache.TOKEN_PREFIX+username,forgetToken);
+            RedisShardedUtil.setEx(Const.TOKEN_PREFIX+username,forgetToken,60*60*12);
             return ServerResponse.createBySuccess(forgetToken);
         }
         return ServerResponse.createByErrorMessage("问题的答案错误");
@@ -126,7 +123,7 @@ public class UserServiceIpml implements IUserService {
             //用户不存在
             return ServerResponse.createByErrorMessage("用户不存在");
         }
-        String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX+username);
+        String token = RedisShardedUtil.get(Const.TOKEN_PREFIX+username);
         if(org.apache.commons.lang3.StringUtils.isBlank(token)){
             return ServerResponse.createByErrorMessage("token无效或者过期");
         }

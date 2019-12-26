@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <!-- 打印sql语句,具有 SLF4J | LOG4J | LOG4J2 | JDK_LOGGING | COMMONS_LOGGING | STDOUT_LOGGING | NO_LOGGING 等格式-->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+    <!-- mapper已经在spring-mybatis.xml中的sqlSessionFactory配置，这里不再需要配置 -->
+     <!--<mappers>-->
+         <!--&lt;!&ndash;不能使用通配符，只能挨个添加每个mapper&ndash;&gt;-->
+         <!--<mapper resource="mappers/UserMapper.xml" />-->
+         <!--<mapper resource="mappers/ShippingMapper.xml" />-->
+         <!--<mapper resource="mappers/ProductMapper.xml" />-->
+         <!--<mapper resource="mappers/PayInfoMapper.xml" />-->
+         <!--<mapper resource="mappers/OrderMapper.xml" />-->
+         <!--<mapper resource="mappers/OrderItemMapper.xml" />-->
+         <!--<mapper resource="mappers/CategoryMapper.xml" />-->
+         <!--<mapper resource="mappers/CartMapper.xml" />-->
+     <!--</mappers>-->
+</configuration>

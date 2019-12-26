@@ -1,8 +1,14 @@
 package com.lcmall.po;
 
+import lombok.Data;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class User {
+/**
+ * 实现序列化是为了使用Spring-Session
+ */
+public class User implements Serializable {
     private Integer id;
 
     private String username;
@@ -23,6 +29,10 @@ public class User {
 
     private Date updateTime;
 
+    public User(){
+        super();
+    }
+
     public User(Integer id, String username, String password, String email, String phone, String question, String answer, Integer role, Date createTime, Date updateTime) {
         this.id = id;
         this.username = username;
@@ -34,10 +44,6 @@ public class User {
         this.role = role;
         this.createTime = createTime;
         this.updateTime = updateTime;
-    }
-
-    public User() {
-        super();
     }
 
     public Integer getId() {
@@ -53,7 +59,7 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+        this.username = username;
     }
 
     public String getPassword() {
@@ -61,7 +67,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getEmail() {
@@ -69,7 +75,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+        this.email = email;
     }
 
     public String getPhone() {
@@ -77,7 +83,7 @@ public class User {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public String getQuestion() {
@@ -85,7 +91,7 @@ public class User {
     }
 
     public void setQuestion(String question) {
-        this.question = question == null ? null : question.trim();
+        this.question = question;
     }
 
     public String getAnswer() {
@@ -93,7 +99,7 @@ public class User {
     }
 
     public void setAnswer(String answer) {
-        this.answer = answer == null ? null : answer.trim();
+        this.answer = answer;
     }
 
     public Integer getRole() {
